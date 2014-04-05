@@ -36,6 +36,64 @@ Here are some useful gems to use (or at least that I have used).
 1. **faker** => Used to get fake data for samples (see sample_data.rake) 
 
 
+## Generating Models & Migrations ##
+*Use SINGULAR for model names such as User, Micropost, Relationship.*  
+*timestamps creates two magic columns called created\_at and updated\_at*
+
+Migration files consist of a **change** method that creates, updates, or removes columns and tables
+
+**rails generate model User name:string email:string** => Creates a model and a migration file with 
+
+**bundle exec rake db:migrate** => Runs the data migrations.
+
+**bundle exec rake db:rollback** => Rolls back the data migrations.
+
+**bundle exec rake test:prepare** => Sets up the test DB
+
+**Model record definitions** <br />
+class User < ActiveRecord::Base
+end
+
+**Data types**
+:binary
+:boolean
+:date
+:datetime
+:decimal
+:float
+:integer
+:primary_key
+:references
+:string
+:text
+:time
+:timestamp
+
+**scope :name, where("")** allows you to call Model.scope with that where clause.  
+
+## Controller Class Definitions ##
+*Use PLURAL for controller names such as StaticPagesController(file name: static\_pages\_controller)*
+
+
+class UsersController < ApplicationController
+
+end
+
+## Model Records (ActiveRecord::Base)
+
+**validates(:field_name, {})** => Validates the field with the options passed in.  
+
+## Querying with Models ##
+
+- **with_scope** => in your model class when you define a method add the following to allow additional operations on your find.  Example:
+
+    def self.find\_incomplete(options = {}) <br>
+        with\_scope :find => options do <br> 
+    find\_all\_by\_complete(false, :order => 'created_at DESC'); <br>
+      end 
+    end
+- **find(:all).collect(&:name).collect(&:downcase)** => returns an array of the attribute.  Chainable.
+
 ## Sample data ##
 
 1. Create a rake file like \lib\task\sample_data.rake
