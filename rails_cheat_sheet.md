@@ -50,6 +50,8 @@ Migration files consist of a **change** method that creates, updates, or removes
 
 **bundle exec rake test:prepare** => Sets up the test DB
 
+**bundle exec rspec spec/** => Runs the tests in the specified directory/file (spec/)
+
 **Model record definitions** <br />
 class User < ActiveRecord::Base
 end
